@@ -13,13 +13,13 @@ type Foo struct {
 	IsActive bool
 }
 
-const QUERY_EXECUTION_TIME_SECOND = "0.1"
+const QUERY_EXECUTION_TIME_SECOND = 100 * time.Millisecond
 
 func Find(after FooId, limit uint, isActiveThreshould uint) []Foo {
 	r := rand.New(rand.NewSource(time.Now().UnixNano()))
 	randomNumber := r.Intn(100)
 	rng := lo.Range(int(limit) * 2)
-	time.Sleep(100 * time.Millisecond)
+	time.Sleep(QUERY_EXECUTION_TIME_SECOND)
 	return lo.Map(rng, func(item int, index int) Foo {
 		return Foo{
 			ID:       FooId(item),
